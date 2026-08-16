@@ -1,7 +1,6 @@
 package com.sohel.demoproj.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -18,16 +17,13 @@ public class TeamService implements TeamServiceInterface {
     }
 
     @Override
-    public void addPlayer(String player) {
-        teamRepository.save(new Player(player));
+    public void addPlayer(Player player) {
+        teamRepository.save(player);
     }
 
     @Override
-    public List<String> getPlayers() {
-        return teamRepository.findAll()
-                .stream()
-                .map(Player::getName)
-                .collect(Collectors.toList());
+    public List<Player> getPlayers() {
+        return teamRepository.findAll();
     }
 
     @Override

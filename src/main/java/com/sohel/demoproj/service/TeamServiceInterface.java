@@ -1,12 +1,13 @@
 package com.sohel.demoproj.service;
 
 import java.util.List;
+import com.sohel.demoproj.entity.Player;
 
 public interface TeamServiceInterface {
 
-    void addPlayer(String player);
+    void addPlayer(Player player);
 
-    List<String> getPlayers();
+    List<Player> getPlayers();
 
     void removePlayer(String player);
 

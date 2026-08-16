@@ -17,20 +17,18 @@ public class TeamController {
     }
 
     @GetMapping("/players")
-    public List<String> getPlayers() {
+    public List<Player> getPlayers() {
         return teamService.getPlayers();
     }
 
     @PostMapping("/players")
-    public String addPlayers(@RequestBody List<Player> players) {
-        for (Player p : players) {
-            String name = p.getName();
-            if (teamService.playerExists(name)) {
-                return "Player already exists: " + name;
-            }
-            teamService.addPlayer(name);
+    public String addPlayer(@RequestBody Player player) {
+        String name = player.getName();
+        if (teamService.playerExists(name)) {
+            return "Player already exists: " + name;
         }
-        return "Players added successfully";
+        teamService.addPlayer(player);
+        return "Player added successfully";
     }
 
     @DeleteMapping("/players/{player}")

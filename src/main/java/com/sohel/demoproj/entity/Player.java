@@ -1,18 +1,17 @@
 package com.sohel.demoproj.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document(collection = "players")
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String name;
+    private String gender;
+    private Integer age;
 
     public Player() {
     }
@@ -21,7 +20,13 @@ public class Player {
         this.name = name;
     }
 
-    public Long getId() {
+    public Player(String name, String gender, Integer age) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -31,5 +36,21 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }
