@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 import com.sohel.demoproj.service.TeamService;
+import com.sohel.demoproj.entity.Player;
 
 @RestController
 @RequestMapping("/team")
@@ -21,12 +22,15 @@ public class TeamController {
     }
 
     @PostMapping("/players")
-    public String addPlayer(@RequestBody String player) {
-        if (teamService.playerExists(player)) {
-            return "Player already exists";
+    public String addPlayers(@RequestBody List<Player> players) {
+        for (Player p : players) {
+            String name = p.getName();
+            if (teamService.playerExists(name)) {
+                return "Player already exists: " + name;
+            }
+            teamService.addPlayer(name);
         }
-        teamService.addPlayer(player);
-        return "Player added successfully";
+        return "Players added successfully";
     }
 
     @DeleteMapping("/players/{player}")

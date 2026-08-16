@@ -1,23 +1,17 @@
 package com.sohel.demoproj.repository;
-import java.util.ArrayList;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.sohel.demoproj.entity.Player;
+
 @Repository
-public class TeamRepository {
-    ArrayList<String> players = new ArrayList<>();
-    public void addPlayer(String player) {
-        players.add(player);
-    }
-    public ArrayList<String> getPlayers() {
-        return players;
-    }
+public interface TeamRepository extends JpaRepository<Player, Long> {
+    boolean existsByName(String name);
 
-    public void removePlayer(String player) {
-        players.remove(player);
-    }
+    void deleteByName(String name);
 
-    public boolean playerExists(String player) {
-        return players.contains(player);
-    }
+    List<Player> findByName(String name);
 }
