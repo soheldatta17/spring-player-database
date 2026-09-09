@@ -9,6 +9,7 @@ public class Player {
     @Id
     private String id;
 
+    private String email;
     private String name;
     private String gender;
     private Integer age;
@@ -16,11 +17,8 @@ public class Player {
     public Player() {
     }
 
-    public Player(String name) {
-        this.name = name;
-    }
-
-    public Player(String name, String gender, Integer age) {
+    public Player(String email, String name, String gender, Integer age) {
+        this.email = email;
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -28,6 +26,18 @@ public class Player {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -54,3 +64,4 @@ public class Player {
         this.age = age;
     }
 }
+

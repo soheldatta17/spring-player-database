@@ -1,6 +1,7 @@
 package com.sohel.demoproj.service;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class TeamService implements TeamServiceInterface {
 
     @Override
     public void addPlayer(Player player) {
-        teamRepository.save(player);
+        teamRepository.save(Objects.requireNonNull(player));
     }
 
     @Override
@@ -27,12 +28,12 @@ public class TeamService implements TeamServiceInterface {
     }
 
     @Override
-    public void removePlayer(String player) {
-        teamRepository.deleteByName(player);
+    public void removePlayer(String email) {
+        teamRepository.deleteByEmail(Objects.requireNonNull(email));
     }
 
     @Override
-    public boolean playerExists(String player) {
-        return teamRepository.existsByName(player);
+    public boolean playerExists(String email) {
+        return teamRepository.existsByEmail(Objects.requireNonNull(email));
     }
-}
+}

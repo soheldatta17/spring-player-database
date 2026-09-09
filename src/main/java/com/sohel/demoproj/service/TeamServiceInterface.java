@@ -9,7 +9,7 @@ public interface TeamServiceInterface {
 
     List<Player> getPlayers();
 
-    void removePlayer(String player);
+    void removePlayer(String email);
 
-    boolean playerExists(String player);
-}
+    boolean playerExists(String email);
+}

@@ -23,20 +23,25 @@ public class TeamController {
 
     @PostMapping
     public String addPlayer(@RequestBody Player player) {
-        String name = player.getName();
-        if (teamService.playerExists(name)) {
-            return "Player already exists: " + name;
+        String email = player.getEmail();
+        if (email == null || email.isBlank()) {
+            return "Email is required";
         }
+        if (teamService.playerExists(email)) {
+            return "Player already exists with email: " + email;
+        }
+        // id is not provided by the user; MongoDB will auto-generate it upon saving
+        player.setId(null);
         teamService.addPlayer(player);
-        return "Player added successfully";
+        return "Player added successfully with system-generated ID: " + player.getId();
     }
 
-    @DeleteMapping("/{player}")
-    public String removePlayer(@PathVariable String player) {
-        if (!teamService.playerExists(player)) {
-            return "Player does not exist";
+    @DeleteMapping("/{email}")
+    public String removePlayer(@PathVariable String email) {
+        if (!teamService.playerExists(email)) {
+            return "Player with email " + email + " does not exist";
         }
-        teamService.removePlayer(player);
+        teamService.removePlayer(email);
         return "Player removed successfully";
     }
-}
+}
