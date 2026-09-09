@@ -11,5 +11,7 @@ public interface TeamServiceInterface {
 
     void removePlayer(String email);
 
+    void removeAllPlayers();
+
     boolean playerExists(String email);
-}
+}

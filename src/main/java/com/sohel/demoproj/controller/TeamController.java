@@ -44,4 +44,11 @@ public class TeamController {
         teamService.removePlayer(email);
         return "Player removed successfully";
     }
-}
+
+    @DeleteMapping("/all")
+    public String removeAllPlayers() {
+        teamService.removeAllPlayers();
+        return "All players removed successfully";
+    }
+    
+}

@@ -33,7 +33,12 @@ public class TeamService implements TeamServiceInterface {
     }
 
     @Override
+    public void removeAllPlayers() {
+        teamRepository.deleteAll();
+    }
+
+    @Override
     public boolean playerExists(String email) {
         return teamRepository.existsByEmail(Objects.requireNonNull(email));
     }
-}
+}

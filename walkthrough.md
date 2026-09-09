@@ -6,7 +6,16 @@ We have implemented complete stateless JWT Authentication & Authorization in you
 
 1. **Dependencies & Configuration**:
    - Added `spring-boot-starter-security` and `io.jsonwebtoken:jjwt-*` (0.12.6) in [pom.xml](file:///e:/GitHub/spring-tutorial-course/pom.xml).
-   - Configured `jwt.secret` and `jwt.expiration` in [application.properties](file:///e:/GitHub/spring-tutorial-course/src/main/resources/application.properties).
+   - Configured `jwt.secret` and `jwt.expiration` in [application.properties](file:///e:/GitHub/spring-tutorial-course/src/main/resources/application.properties). Store the `MONGODB_URI` and `JWT_SECRET` environment variables in a local `.env` file; `JWT_SECRET` must be a Base64-encoded key of at least 256 bits.
+
+### Local `.env` File
+
+Create a local `.env` file containing the required values. Spring Boot imports this file when it starts, and `.env` is excluded from Git.
+
+```dotenv
+MONGODB_URI=your-mongodb-connection-string
+JWT_SECRET=your-base64-encoded-secret
+```
 
 2. **DTOs**:
    - Created [AuthRequest.java](file:///e:/GitHub/spring-tutorial-course/src/main/java/com/sohel/demoproj/dto/AuthRequest.java) to accept `username` and `password`.
