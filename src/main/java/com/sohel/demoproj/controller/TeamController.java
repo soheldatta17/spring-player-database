@@ -8,7 +8,7 @@ import com.sohel.demoproj.service.TeamService;
 import com.sohel.demoproj.entity.Player;
 
 @RestController
-@RequestMapping("/team")
+@RequestMapping("/team/players")
 public class TeamController {
     private final TeamService teamService;
 
@@ -16,12 +16,12 @@ public class TeamController {
         this.teamService = teamService;
     }
 
-    @GetMapping("/players")
+    @GetMapping
     public List<Player> getPlayers() {
         return teamService.getPlayers();
     }
 
-    @PostMapping("/players")
+    @PostMapping
     public String addPlayer(@RequestBody Player player) {
         String name = player.getName();
         if (teamService.playerExists(name)) {
@@ -31,7 +31,7 @@ public class TeamController {
         return "Player added successfully";
     }
 
-    @DeleteMapping("/players/{player}")
+    @DeleteMapping("/{player}")
     public String removePlayer(@PathVariable String player) {
         if (!teamService.playerExists(player)) {
             return "Player does not exist";
