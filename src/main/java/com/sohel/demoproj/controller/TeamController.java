@@ -21,6 +21,20 @@ public class TeamController {
         return teamService.getPlayers();
     }
 
+    @GetMapping("/{email}")
+    public Player getByEmail(@PathVariable String email) {
+        return teamService.getByEmail(email);
+    }
+
+    @PutMapping("/{email}")
+    public String updatePlayer(@PathVariable String email, @RequestBody Player newPlayerData) {
+        if (!teamService.playerExists(email)) {
+            return "Player with email " + email + " does not exist";
+        }
+        teamService.updatePlayer(email, newPlayerData);
+        return "Player updated successfully";
+    }
+
     @PostMapping
     public String addPlayer(@RequestBody Player player) {
         String email = player.getEmail();
@@ -50,5 +64,5 @@ public class TeamController {
         teamService.removeAllPlayers();
         return "All players removed successfully";
     }
-    
+
 }

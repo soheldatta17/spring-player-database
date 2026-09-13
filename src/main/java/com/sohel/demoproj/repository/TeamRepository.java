@@ -12,4 +12,3 @@ public interface TeamRepository extends MongoRepository<Player, String> {
 
     Optional<Player> findByEmail(String email);
 }
-

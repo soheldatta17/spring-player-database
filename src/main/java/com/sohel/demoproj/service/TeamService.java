@@ -28,6 +28,16 @@ public class TeamService implements TeamServiceInterface {
     }
 
     @Override
+    public Player getByEmail(String email) {
+        return teamRepository.findByEmail(Objects.requireNonNull(email)).orElse(null);
+    }
+
+    @Override
+    public void updatePlayer(String email, Player newPlayerData) {
+        teamRepository.save(Objects.requireNonNull(newPlayerData));
+    }
+
+    @Override
     public void removePlayer(String email) {
         teamRepository.deleteByEmail(Objects.requireNonNull(email));
     }

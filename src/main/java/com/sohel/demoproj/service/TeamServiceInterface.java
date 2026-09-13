@@ -9,6 +9,10 @@ public interface TeamServiceInterface {
 
     List<Player> getPlayers();
 
+    Player getByEmail(String email);
+
+    void updatePlayer(String email, Player newPlayerData);
+
     void removePlayer(String email);
 
     void removeAllPlayers();
