@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.sohel.demoproj.entity.Player;
+import com.sohel.demoproj.event.PlayerCreatedEvent;
+import com.sohel.demoproj.rabbitmq.PlayerMessageProducer;
 import com.sohel.demoproj.repository.TeamRepository;
 
 @Service
@@ -17,16 +19,22 @@ public class TeamService implements TeamServiceInterface {
 
     private static final Logger log = LoggerFactory.getLogger(TeamService.class);
     private final TeamRepository teamRepository;
+    private final PlayerMessageProducer playerMessageProducer;
 
-    public TeamService(TeamRepository teamRepository) {
+    public TeamService(TeamRepository teamRepository, PlayerMessageProducer playerMessageProducer) {
         this.teamRepository = teamRepository;
+        this.playerMessageProducer = playerMessageProducer;
     }
 
     @Override
     @CacheEvict(value = {"playersList", "playerByEmail"}, allEntries = true)
     public void addPlayer(Player player) {
         log.debug("TeamService: Saving player to MongoDB and evicting Redis cache entries");
-        teamRepository.save(Objects.requireNonNull(player));
+        Player savedPlayer = teamRepository.save(Objects.requireNonNull(player));
+        
+        // Publish event to RabbitMQ
+        PlayerCreatedEvent event = new PlayerCreatedEvent(savedPlayer.getEmail(), savedPlayer.getName());
+        playerMessageProducer.sendPlayerCreatedEvent(event);
     }
 
     @Override
